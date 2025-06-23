@@ -1,0 +1,2 @@
+class TopicScores:
+    pass
