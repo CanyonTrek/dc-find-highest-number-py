@@ -58,6 +58,35 @@ class TopicManagerTest(unittest.TestCase):
         self.assertEqual(result[0].get_top_score(), expected_result[0].get_top_score())
 
 
+    def test_find_highest_score_with_list_of_many_returns_list_of_many_using_stub(self):
+        # Arrange
+        physics_scores = [56, 67, 45, 89]
+        art_scores = [87, 66, 78]
+        compsci_scores = [45, 88, 97, 56]
+
+        topic_scores = [
+            TopicScores("Physics", physics_scores),
+            TopicScores("Art", art_scores),
+            TopicScores("Comp Sci", compsci_scores)
+        ]
+
+        expected_result = [
+            TopicTopScore("Physics", 89),
+            TopicTopScore("Art", 89),
+            TopicTopScore("Comp Sci", 89)
+        ]
+
+        cut = TopicManager(HighestNumberFinderStub())
+
+        # Act
+        result = cut.find_topic_high_scores(topic_scores)
+
+        # Assert
+        for i in range(len(expected_result)):
+            self.assertEqual(result[i].get_topic_name(), expected_result[i].get_topic_name())
+            self.assertEqual(result[i].get_top_score(), expected_result[i].get_top_score())
+
+
 if __name__ == "__main__":
     unittest.main()
 
