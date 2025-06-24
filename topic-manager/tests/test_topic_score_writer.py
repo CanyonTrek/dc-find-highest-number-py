@@ -11,10 +11,11 @@ class TopicScoreWriterTest(unittest.TestCase):
         top_scores = [TopicTopScore(physics, 89)]
 
         mock_file_writer = Mock()
-        writer = TopicScoreWriter(mock_file_writer)
+        mock_file_writer.filename = "testfile.txt"
+        cut = TopicScoreWriter(mock_file_writer)
 
         # Act
-        writer.write_scores(top_scores)
+        cut.write_scores(top_scores)
 
         # Assert
         mock_file_writer.write_line.assert_called_once_with(expected_result)

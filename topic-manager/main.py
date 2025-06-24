@@ -1,23 +1,26 @@
-from app.topic_top_score import TopicTopScore
 from app.topic_score_writer import TopicScoreWriter
+from app.topic_top_score import TopicTopScore
 from app.file_writer import FileWriter
 
-
 def main():
-    # Sample data
+    # Create a list of topic scores
     top_scores = [
         TopicTopScore("Physics", 89),
-        TopicTopScore("Art", 78),
-        TopicTopScore("Comp Sci", 97)
+        TopicTopScore("Math", 75),
+        TopicTopScore("Art", 92)
     ]
 
-    # Create writer with real FileWriter
+    # Create the file writer
     file_writer = FileWriter()
-    score_writer = TopicScoreWriter(file_writer)
 
-    # Write the scores
-    score_writer.write_scores(top_scores)
+    # Create the score writer with the file writer
+    writer = TopicScoreWriter(file_writer)
 
-if __name__ == '__main__':
+    # Write the scores (only the first one will be written, per original Java logic)
+    writer.write_scores(top_scores, filename="testfile.txt")
+
+    print("Finished writing to file.")
+
+if __name__ == "__main__":
     main()
 
